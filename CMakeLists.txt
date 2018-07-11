@@ -62,6 +62,7 @@ SET(PROGRAM_SRCS
 	${ROOT}/fps.cpp
 	${ROOT}/lib/SDL2_rotozoom.cpp
 	${ROOT}/configmanager.cpp
+	${ROOT}/pluginmanager.cpp
 	
 	${ROOT}/render/buffer.cpp
 	${ROOT}/render/func.cpp
@@ -122,6 +123,8 @@ if(PLATFORM STREQUAL "Linux")
 	target_link_libraries (MPS -lGL)
 	target_link_libraries (MPS -lpthread)
 	target_link_libraries (MPS -no-pie)
+	target_link_libraries (MPS -ldl)
+	target_link_libraries (MPS ${CMAKE_SOURCE_DIR}/src/lib/lua/liblualinux53.a)
 endif()
 if(PLATFORM STREQUAL "Windows")
 	set_target_properties(MPS PROPERTIES OUTPUT_NAME "MPS64.exe")
@@ -136,6 +139,8 @@ if(PLATFORM STREQUAL "Windows")
 	target_link_libraries (MPS -lole32)
 	target_link_libraries (MPS -loleaut32)
 	target_link_libraries (MPS -lcomdlg32)
+	target_link_libraries (MPS -ldl)
+	target_link_libraries (MPS ${CMAKE_SOURCE_DIR}/src/lib/lua/libluawin53.a)
 	if(TYPE STREQUAL "Release")
 		target_link_libraries (MPS -mwindows)
 	endif()
